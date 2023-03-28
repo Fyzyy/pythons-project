@@ -26,14 +26,8 @@ async def on_message(message):
         return True
 
     verite = [
-        'le daron de wassim est chauve',
-        'wassim la merdguez',
-        'ugo le gros',
-        'MXCCP >> UGO',
-        'Fyzy trop bg ouais ouais',
-        'benalia va perdre sa V en 5/2',
-        'juliano trop sexy',
-        'titouan fais nous des gosses'
+        'message1',
+        'message2',
     ]
 
     if message.content == 'vérité!':
