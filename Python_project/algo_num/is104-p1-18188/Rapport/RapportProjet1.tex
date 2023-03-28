@@ -1,0 +1,96 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx} % Required for the inclusion of images
+\usepackage{amsmath} % Required for some math elements 
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage[francais]{babel}
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+\renewcommand{\labelenumi}{\alph{enumi}.} % Make numbering in the enumerate environment by letter rather than number (e.g. section 6)
+
+\title{Méthodes de calcul numérique et limites de la machine} % Title
+
+\author{Coordinateur de projet : Luxel \textsc{HAMOUCHE} \and Secrétaire : Allan \textsc{DENOCE} \and Programmeurs : Joachim \textsc{ROBERT} \& Joris \textsc{ROUSERE} \& Maximilien \textsc{VIDIANI} \\ \\ \and Semaine 1 : \and Tandem 1 :  Joris \textsc{ROUSERE} \& Allan \textsc{DENOCE} \and Tandem 2 : Joachim \textsc{ROBERT} \& Luxel \textsc{HAMOUCHE} \& Maximilien \textsc{VIDIANI}  \\ \\ \and Semaine 2 : \and Tandem 1 :  Joris \textsc{ROUSERE} \& Joachim \textsc{ROBERT} \and Tandem 2 : Allan \textsc{DENOCE} \& Luxel \textsc{HAMOUCHE} \& Maximilien \textsc{VIDIANI}} % Author name
+\date{\today} % Date for the report
+
+\begin{document}
+
+\maketitle
+
+
+\begin{figure}[b]
+    \centering
+    \includegraphics[width = 10cm]{logo_enseirbmatmeca.jpg}
+\end{figure}
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Représentation des nombres en machine}
+
+\subsection{Introduction}
+
+\section{Exemples d'algorithmes numériques}
+
+\subsection{Introduction}
+
+Dans cette partie, on cherche à écrire un algorithme permettant de calculer une valeur approchée de log(2). Pour se faire, on utilisera l'écriture du logarithme de 2 sous la forme de la somme suivante : 
+\begin{math}
+    log(2) = \sum_{n = 1}^\infty \frac{(-1)\up{n+1}}{n}.
+\end{math}
+\\ \\
+On étudiera aussi plusieurs algorithmes CORDIC qui sont notamment utilisé pour les calculatrices. Les fonctions de cette partie sont présentes dans le fichier \emph{partie2.py}.
+
+\subsection{Logarithme népérien de 2}
+
+On va s'interesser à un algorithme en python afin de pouvoir calculer une valeur approché de log(2) sur p décimales. On a décidé de décomposer l'algorithme en 2 algorithmes différents. \\
+
+Le premier qui s'appelle calclog prend en argument un nombre m et calcul la valeur de la somme correspondant au logarithme de 2. 
+On a en argument le nombre m car il nous est impossible de calculer une somme infini en python d'où l'utilisation d'un nombre m que l'on prend très grand. On se retrouve avec la formule suivante : 
+\begin{math}
+log(2) = \sum_{n = 1}^m \frac{(-1)\up{n+1}}{n}.
+\end{math}
+\\
+On a effectué deux boucles for, une allant de 1 à m et une allant de m à 1. On va comparer l'efficacité des 2 fonctions dans le tableau ci-dessous.
+\\
+
+La deuxième fonction logdec prend p en argument et à l'aide de la fonction round, elle nous renvoie le nombre de décimale attendu. \\
+
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+m/sens & 1 à m & m à 1 \\ \hline
+10 & 0.74563 & 0.64563 \\ \hline
+100 & 0.69817 & 0.68817 \\ \hline
+1000 & 0.69365 & 0.69265 \\ \hline
+10000 & 0.69320 & 0.69310 \\ \hline
+100000 & 0.69315 & 0.69314 \\ \hline
+
+\end{tabular}
+
+La valeur réelle de log(2) est 0,6931471805599. On peut donc voir que les 2 façons de faire se rapproche bien de la valeur attendu.
+
+\subsection{Algorithmes CORDIC}
+
+Dans cette partie, on va s'interesser à une FAQ du groupe de discussion \emph{fr.sci.maths} qui explique l'utilisation des algorithmes CORDIC dans les calculatrices.
+\begin{enumerate}
+
+\item Dans une calculatrice typique un nombre 'flottant' occupe 8 octets 
+  de mémoire et se décompose en : 
+  \begin{itemize}
+  \item une mantisse constituée de 13 chiffres codés indépendamment sur
+    4 chiffres binaires (on parle de Binaire Code Decimal ou BCD) 
+  \item un exposant (puissance de 10) éventuellement signé
+  \item le signe du nombre (et de l'exposant s'il n'est pas signé)
+\end{itemize}
+    AVANTAGES : On ne stocke que sur 8 octets et nous n'avons pas besoin d'une grosse précision sur des calculatrices de base. \\
+    INCONVENIENTS : On ne peut pas faire de gros calculs à cause de la mentisse de 13 chiffres et ca nous apporte une perte de précision.
+
+\item La technique générale pour réaliser les 4 algorithmes est d'utiliser une interpolation linéaire voir un développement en série. \\
+On réduit au fur et à mesure l'intervalle de valeur servant à l'interpolation qui se rapproche de plus en plus de la valeur réelle de x. \\
+Pour se faire, on dispose de 2 tableaux contenants des valeurs précalculées de l'inverse de la fonction exponentielle (Logartihme népérien) et un tableau de fonction atan. \\
+Cette technique est efficace car elle ne necessite qu'un tableau avec quelques valeurs de la fonction.
+\end{enumerate}
+\end{document}

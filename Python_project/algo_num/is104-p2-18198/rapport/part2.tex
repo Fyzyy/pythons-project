@@ -1,0 +1,46 @@
+\section{Analyse des résultats}
+
+\subsection{Factorisation complète}
+
+\subsubsection{Factorisation dense de Cholesky.}
+
+La complexité de notre algorithme pour résoudre la factorisation dense de Choleski est en \textit{O(n³)}.
+
+\vspace{0.25cm}
+
+Le cout d'une résolution de système linéaire dense \textit{\textbf{A.x = b}} est en \textit{O(n²)}.
+
+\subsection{Factorisation de Cholesky incomplète}
+
+\subsubsection{Génération de matrices symétriques}
+
+\subsubsection{Algorithme de factorisation de Choleski incomplète}
+
+La complexité de notre algorithme pour résoudre la factorisation dense de Choleski est en \textit{O(n³)}
+
+Pour vérifier cette implémentation, nous avons généré à l'aide d'une fonction de test des matrices symétriques auxquelles nous avons appliqué la factorisation . Nous avans ensuite testé qu'elles étaient bien triangulaires inférieures, que lors d'une multiplication avec sa transposée, nous obtenions bien l'original, et qu'elle était bien définie positive.
+
+\subsection{Méthode du gradient conjugué}
+
+\subsubsection{Sans préconditionneur}
+
+La complexité de notre algorithme pour implémenter la méthode du gradiant conjugué est en \textit{O(n²)}.
+
+\subsubsection{Avec préconditionneur}
+
+La complexité de notre algorithme pour implémenter la méthode du gradiant conjugué est en \textit{O(n²)}.
+
+Malheureusement, après une série de tests similaires à ceux de la version sans préconditionneur, les tests ne se sont pas avérés concluants.
+
+\subsection{Application à l'équation de la chaleur}
+
+Afin de résoudre le problème precedemment posé nous avons implémenté plusieurs fonctions en python.
+\\
+\\
+D'abord pour résoudre le problème en utilsant la décomposoiton de Choleski et la méthode du gradient conjugué, puis en utilisant leurs méthodes homologues incomplètes.
+\\
+\\
+Il a d'abord fallu déclarer une matrice de temperature, initialiser ses conditions limites, et choisir une fonction de la source de châleur.
+
+\subsubsection{Décomposition de Cholesky et gradient conjugué}
+\subsubsection{Décomposition de Cholesky incomplète et gradient conjugué incomplet}

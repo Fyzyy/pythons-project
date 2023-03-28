@@ -1,0 +1,64 @@
+\section{Description algorithmique}
+
+\subsection{Factorisation complète}
+
+\subsubsection{Factorisation dense de Cholesky.}
+
+L'algorithme commence par initialiser une matrice $L$ de taille $n\times n$, où $n$ est la taille de la matrice d'entrée $A$. Cette matrice sera la matrice triangulaire inférieure résultante de la factorisation de Cholesky.
+\medbreak
+L'algorithme utilise ensuite deux boucles imbriquées pour parcourir toutes les lignes et toutes les colonnes de la matrice $A$. Pour chaque élément $(i,j)$ de la matrice, l'algorithme calcule la somme pondérée des carrés des éléments de la ligne $i$ et de la colonne $j$ qui se trouvent en dessous de la diagonale principale. Cette somme pondérée est soustraite de l'élément $A[i,j]$ de la matrice d'entrée.
+\medbreak
+Si $i = j$, l'algorithme calcule la racine carrée de la différence $A[i,i] - s$ pour obtenir l'élément $L[i,i]$ de la diagonale de la matrice triangulaire $L$. \\
+Sinon, l'algorithme calcule l'élément $L[i,j]$ de la matrice $L$ en divisant la différence $A[i,j] - s$ par l'élément $L[j,j]$ correspondant de la diagonale de la matrice triangulaire $L$.
+\medbreak
+Une fois que toutes les valeurs de la matrice $L$ ont été calculées, l'algorithme renvoie cette matrice triangulaire inférieure $L$ en tant que résultat de la factorisation de Cholesky de la matrice d'entrée $A$.
+
+\subsection{Factorisation de Cholesky incomplète}
+
+\subsubsection{Génération de matrices symétriques}
+
+Pour générer des matrices symétriques définies positives creuses avec un nombre de termes extra diagonaux non nuls réglables, nous avons créé une fonction. Les paramètres de cette fonction sont $n$, la matrice renvoyée étant de taille $n\times n$ et \verb|density| représentant la densité de termes extra diagonaux nuls dans la matrice. Pour chaque valeur de la matrice, elle est aléatoirement remplacé par une autre valeur aléatoire en fonction de la densité.
+
+\subsubsection{Algorithme de factorisation de Choleski incomplète}
+
+Afin d'implémenter la factorisation de Cholesky incomplète, l'algorithme implémenté parcours chaque élément de la partie supérieure de la matrice pour y appliquer la formule et renvoie simplement la matrice obtenue.
+
+\subsection{Méthode du gradient conjugué}
+
+\subsubsection{Sans préconditionneur}
+
+L'algorithme implémenté fonctionne de manière itérative dans le but de résoudre des systèmes d'équations linéaires. En premier lieu, un point de départ et une direction de départ sont choisis, puis l'algorithme calcule la direction de descente qui minimise la fonction d'erreur dans cette direction. La solution est mise à jour en utilisant la direction de recherche optimale. On utilise la méthode des gradients conjugués pour déterminer une nouvelle direction de recherche. Ces étapes sont répétées jusqu'à obtenir un résultat convenable.
+
+\subsubsection{Avec préconditionneur}
+
+Ce nouvel algorithme est similaire à celui décri précèdemment en ajoutant un préconditionneur, défini dans les ressources fournies par le sujet du projet.
+
+\subsection{Application à l'équation de la chaleur}
+
+Après avoir multiplié la matrice A avec le vecteur T, on obtient un vecteur colonne de taille $n^2$, dont chaque ligne correspond à "une case" de la matrice, tel que pour que chaque ligne $L_i$ du vecteur : 
+\\
+\\
+$L_i = -4T_i + T_(i+n) + T_(i-n) + T_(i-1) + T_(i+1)$
+\\cf. fig. pour explications
+\\
+\\
+\begin{figure}
+    \centering
+    \includegraphics{img/tabeqchaleur.png}
+    \caption{explications formule ci dessus}
+    
+\end{figure}
+\\
+\newpage
+D'après le bilan thermique, les lignes $L_i$ du vecteur doives toutes être égales au therme source. On obtient cette équation : 
+\\
+\\
+$$\frac{-4T_i + T_{i+1} + T_{i-1} + T_{i+n} + T_{i-n}}{h^2} = S_i$$
+\\
+
+Il s'agit de l'équation de la chaleur qui est une équation aux dérivées partielles, approximée grace à la méthode des différences finies. On peut donc bien mettre cette équaiton sous la forme d'un système linéaire Ax+b (A correspondant à la matrice de dimension $(n^2, n^2)$ de l'énoncé, x aux temperatures à l'instant final, que l'on cherche, et b aux sources chaudes). 
+\\
+Ainsi, pour résoudre ce système, nous avons mis en place une série d'algorithmes qui sont détaillés en partie 2. 
+
+
+
